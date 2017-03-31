@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dozydroid.githubjavapk.controller.DeveloperActivity;
 import com.dozydroid.githubjavapk.model.Item;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -38,8 +38,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     public void onBindViewHolder(ItemAdapter.ViewHolder viewHolder, int i){
         viewHolder.title.setText(items.get(i).getLogin());
         viewHolder.gitHubLink = items.get(i).getHtml_url();
-
-        Picasso.with(context).load(items.get(i).getAvatar_url()).placeholder(R.drawable.cat).into(viewHolder.imageView);
+        // Thumbnail(0.1f) : To first load a thumbnail at 1/10th the size of your view and then load the full image on top
+        // This will reduce the time your user has to see image loading spinners without sacrificing quality.
+        Glide.with(context).load(items.get(i).getAvatar_url()).thumbnail(0.1f).placeholder(R.drawable.cat).into(viewHolder.imageView);
+//        Picasso.with(context).load(items.get(i).getAvatar_url()).placeholder(R.drawable.cat).into(viewHolder.imageView);
     }
 
     @Override
